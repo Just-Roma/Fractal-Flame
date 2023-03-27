@@ -1,0 +1,191 @@
+/* First define the tags selectors*/
+
+html{
+  width:100%;
+  height:100%;
+  background-color:rgb(0,0,0);
+  scrollbar-color:#dc143c #000000; /* For Firefox */
+  scrollbar-width:auto;            /* For Firefox */
+}
+
+body{
+  width:100%;
+  height:100%;
+  margin:0px;
+  overflow:hidden; /* The scrollbar is defined only for the #Menu */
+}
+
+h1{
+  width:98%; /* is less than 100% to shift it to the left */
+  height:6%;
+  text-align:center;
+  margin:0px;
+  margin-top:2vh;
+  margin-bottom:1.5vh;
+  padding:0px;
+  font-size:calc(1.5vw + 1vh);
+  color:rgb(220,20,60);
+  text-shadow:
+    0 0 1px  rgb(220,20,60),
+    0 0 2px  rgb(220,20,60);
+}
+
+label{
+  display:block;
+  font-size:calc(0.9vw + 0.9vh);
+  margin-bottom:0.5vh;
+}
+
+option{
+ font-size:16px; 
+}
+
+textarea,textarea:focus{
+  outline:none;
+  resize:none;
+  font-size:calc(0.7vw + 0.7vh);
+  background-color:rgb(0,0,0);
+  color:rgb(220,20,60);
+  border-radius: 3px;
+  border:1px solid rgb(220,20,60);
+  width:85%;
+}
+
+select{
+  background-color:rgb(0,0,0);
+  color:rgb(220,20,60);
+  font-size:calc(0.7vw + 0.7vh);
+  border:1px solid rgb(220,20,60);
+  border-radius:3px;
+  cursor:pointer;
+  outline:none;
+  width:98%;
+  /height:calc(1.1vw + 1.1vh);
+}
+
+
+/***********************************************************************/
+/*      Here comes the definition of all the tags within the body      */
+/* These selectors are sorted according to the corresponding html tags */
+
+/* InfoPage is the info menu for the user */
+#InfoPage{
+  width:85%;
+  height:100%;
+  display:none;
+  color:white;
+  overflow:auto;
+}
+
+.infoParagraph{
+  margin-left:10vw;
+  margin-right:10vw;
+}
+
+#infoList{
+  margin-left:10vw;
+  margin-right:10vw;
+}
+
+
+#Canvas{
+  width:85%;
+  display:inline-block;
+  background-color:rgba(255,255,255,0);
+}
+
+
+/* Menu holds all the user input fields */
+#Menu{
+  position:fixed;
+  width:13%;
+  padding-left:1.5vw;
+  height:100%;
+  text-align:center;
+  display:inline-block;
+  color:rgb(220,20,60);
+  overflow:auto;
+}
+
+/* selectDiv defines the containers within the "Menu", which include different blocks of user-defined parameters */
+.selectDiv{
+  width:98%; /* is less than 100% to guarantee the distance between the scroll bar and the elements of the #Menu */
+  padding-top:2vh;
+  padding-bottom:2vh;
+}
+
+
+/* dependentParameters is the last div block, which includes the function parameters of some functions. */
+/* it will change its "display" state depending on what fumction is currently chosen */
+
+#ExtraParametersDiv, #Fan2Div, #Rings2Div, #BlobDiv, #PDJDiv, #JuliaNDiv{
+  display:none;
+}
+
+#JuliaNDistContainer{
+  margin-top:3vh;
+}
+
+/* These clas selectors define the main buttons in the html */
+.MainButtons{
+  width:96%;   /* is less than 100% to make sure that it does not go beyond the #Menu block */
+  height:33%;
+  color:rgb(220,20,60);
+  border:none;
+  padding:0px;
+  cursor:pointer;
+  font-size:calc(0.9vw + 0.9vh);
+  background:#000;
+  text-shadow:
+    0 0 0px  rgb(220,20,60),
+    0 0 1px  rgb(220,20,60),
+    0 0 2px  rgb(220,20,60);
+
+  box-shadow:
+    inset 0 0 4px rgb(220,20,60),
+    0 0 0px  rgb(220,20,60),
+    0 0 1px  rgb(220,20,60),
+    0 0 2px  rgb(220,20,60),
+    0 0 3px  rgb(220,20,60),
+    0 0 5px  rgb(220,20,60);
+}
+
+/* Change the button's appearance on click. */
+.MainButtons:active{
+  box-shadow:
+    inset 0 0 4px rgb(220,20,60),
+    0 0 0px  rgb(220,20,60),
+    0 0 1px  rgb(220,20,60),
+    0 0 2px  rgb(220,20,60),
+    0 0 3px  rgb(220,20,60),
+    0 0 4px  rgb(220,20,60),
+    0 0 5px  rgb(220,20,60),
+    0 0 6px  rgb(220,20,60),
+    0 0 7px  rgb(220,20,60),
+    0 0 8px  rgb(220,20,60);
+}
+
+#ButtonCreate{
+  margin-top:4vh;
+}
+
+#ButtonInfo{
+  margin-top:5vh;
+}
+
+/* Change the scrollbar */
+::-webkit-scrollbar{
+  background-color:rgb(0,0,0);
+  display:inline-block;
+  width:5px;
+  height:0px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color:rgb(220,20,60);
+  border-radius:2px;
+}
+
+::-webkit-scrollbar-track{
+  background:transparent;
+}

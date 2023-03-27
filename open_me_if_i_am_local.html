@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html style="background-color:black;" lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Fractal flame</title>
+    
+  <!-- Style is added here to guarantee the good-looking initialization of the page in Github. -->
+  <!-- Unfortunately there are some obstacles with using CSS animation while page loading probably due to how github preview handles the loading process. -->
+  <!-- So the initial page is minimalistic. -->
+  <style>
+    html{
+      width:100%;
+      height:100%;
+      background-color:rgb(0,0,0);
+    }	
+
+    #loadingPage{
+      position: absolute;
+      top: 45%;
+      left: 45%; 
+    }
+
+    #MainPage{
+      width:100%;
+      height:100%;
+      display:none;
+    }
+
+    #loadingText{
+      font-size:calc(1.5vw + 1.5vh);
+      color:rgb(220,20,60);
+      text-shadow:
+        0 0 7px  rgb(220,20,60),
+        0 0 10px rgb(220,20,60),
+        0 0 15px rgb(220,20,60),
+        0 0 25px rgb(220,20,60);
+      }
+
+  </style>
+    
+    <link   rel ="stylesheet"      href="./FractalFlame.css"/>
+    <script type="text/javascript" src ="./Worker.js"         defer></script>
+    <script type="text/javascript" src ="./FractalFlame.js"   defer></script>
+    <script type="text/javascript" src ="./EventListeners.js" defer></script>
+  </head>
+
+  <body>
+	  
+   <div id='loadingPage'>
+	<p id='loadingText'>Loading</p>
+   </div>
+	  
+   <div id="MainPage">
+
+      <div id="InfoPage">
+        <p class="infoParagraph"> The main intention of this page is to create aesthetically pleasing images. 
+          Though most of results will be interesting/beautuful, there is a chance that something weird/ugly will be produced.
+          In that case just click on the "Create" button and wait for the next result.
+          The creation of images is slow, so to get a good result you have to wait some time. Depending on the fractal type it can take up 
+          to 1 minute. Every few seconds the image is modified, so meanwhile you can just watch the creation process.
+          <br><br>
+          There are two parameters and buttons:
+        </p>
+        <ol id="infoList">
+          <li>"Fractal type" defines the function, which will be used to produce the images. It is the main part. Changing it does not automatically create new image.</li>
+          <br>
+          <li>"Magic number" defines the number of affine coefficient sets. These are geometrical transformations. "Magic number" affects the appearence of the final image. Larger values increase the creation time. Changing it does not automatically create new image.</li>
+          <br>
+          <li>"Create" button creates a new image. Every time you press it, it becomes shortly disabled until the first frame is done. After that you can use it again.</li>
+          <br>
+          <li>"Info"/"Back" changes between this Info menu and the canvas. While reading this an image is being created. When you get back, it will be more attractive.</li>
+        </ol>
+        <p class="infoParagraph">
+          Unfortunately there is no way to predict how the next image will look like. Each new picture gets its own random affine transformations and colors.
+          There is practically no chance to get the same image again. Although most images will be build according to some pattern, some will be extraordinary.
+        </p>
+      </div>
+
+      <canvas id="Canvas"></canvas>
+
+      <div id="Menu">
+
+        <h1>Fractal flame</h1>
+        <div class="selectDiv" id="FunctionsDiv">
+          <label for="functions">Fractal type:</label>
+          <select name="functions" id="selectFunc">
+            <option value="Spherical"  selected="selected">Spherical</option>
+            <option value="Heart">Heart</option>
+            <option value="Linear">Linear</option>
+            <option value="JuliaN">JuliaN</option>
+            <option value="Sinusoidal">Sinusoidal</option>
+            <option value="Swirl">Swirl</option>
+            <option value="Horseshoe">Horseshoe</option>
+            <option value="Polar">Polar</option>
+            <option value="Handkerchief">Handkerchief</option>
+            <option value="Heart2">Heart2</option>
+            <option value="Disc">Disc</option>
+            <option value="Spiral">Spiral</option>
+            <option value="Hyperbolic">Hyperbolic</option>
+            <option value="Diamond">Diamond</option>
+            <option value="Ex">Ex</option>
+            <option value="Bent">Bent</option>
+            <option value="Waves">Waves</option>
+            <option value="Fisheye">Fisheye</option>
+            <option value="Popcorn">Popcorn</option>
+            <option value="Exponential">Exponential</option>
+            <option value="Power">Power</option>
+            <option value="Cosine">Cosine</option>
+            <option value="Rings">Rings</option>
+            <option value="Rings2">Rings2</option>
+            <option value="Fan">Fan</option>
+            <option value="Fan2">Fan2</option>
+            <option value="Blob">Blob</option>
+            <option value="PDJ">PDJ</option>
+            <option value="Pipe">Pipe</option>
+            <option value="Eyefish">Eyefish</option>
+            <option value="Bubble">Bubble</option>
+            <option value="Cylinder">Cylinder</option>
+            <option value="Tangent">Tangent</option>
+            <option value="Butterfly">Butterfly</option>
+            <option value="Foci">Foci</option>
+            <option value="Loonie">Loonie</option>
+            <option value="Square">Square</option>
+          </select>
+        </div>
+
+        <!-- Each function has an associated number of affine transformations. 
+             The options below are for the linear function.
+             Changing the type of function("Fractal type") forces the script to change these numbers according to the new choice.-->
+        <div class="selectDiv" id="AffinesDiv">
+          <label for="affines">Magic number:</label>
+          <select name="affines" id="selectAffine">
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20" selected="selected">20</option>
+          </select>
+        </div>
+
+        <div class="selectDiv" id="ButtonsDiv">
+          <button class="MainButtons" id="ButtonCreate">Create</button>
+          <button class="MainButtons" id="ButtonInfo">Info</button>
+        </div>
+
+        <div class="selectDiv" id="ExtraParametersDiv">
+
+          <label for="ExtraParsDiv">Extra Parameters:</label>
+          <div name="ExtraParsDiv">
+          
+            <div id="Fan2Div">
+              <label for="Fan2_x">x parameter</label>
+                <textarea name="Fan2_x" id="Fan2X">0.1</textarea>
+              <label for="Fan2_y">y parameter</label>
+                <textarea name="Fan2_y" id="Fan2Y">0.1</textarea>
+            </div>
+
+            <div id="Rings2Div">
+              <label for="Rings2Area">rings</label>
+                <textarea name="Rings2Area" id="Rings2val">0.2</textarea>
+            </div>
+
+            <div id="BlobDiv">
+              <label for="Blob_Div">Waves</label>
+              <textarea name="Blob_Div" id="BlobPar"></textarea>
+            </div>
+
+            <div id="PDJDiv">
+              <label for="PDJ_Div">Affines(a,b,c,d)</label>
+              <div name="PDJ_Div">
+                <select id="PDJ_Select_p1">
+                  <option value="1">1</option>
+                  <option value="2" selected="selected">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                
+                <select id="PDJ_Select_p2">
+                  <option value="1" selected="selected">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                
+                <select id="PDJ_Select_p3">
+                  <option value="1" selected="selected">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                
+                <select id="PDJ_Select_p4">
+                  <option value="1">1</option>
+                  <option value="2" selected="selected">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="JuliaNDiv">
+              <div id="JuliaNPowContainer">
+                <label for="JuliaNPow">Power</label>
+                <select name="JuliaNPow" id="JuliaNPower">
+                  <option value="-10">-10</option>
+                  <option value="-9">-9</option>
+                  <option value="-8">-8</option>
+                  <option value="-7">-7</option>
+                  <option value="-6">-6</option>
+                  <option value="-5">-5</option>
+                  <option value="-4">-4</option>
+                  <option value="-3">-3</option>
+                  <option value="-2">-2</option>
+                  <option value="-1">-1</option>
+                  <option value="1">1</option>
+                  <option value="2" selected="selected">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+
+              <div id="JuliaNDistContainer"> 
+                <label for="JuliaNDist">Distance</label>
+                <textarea name="JuliaNDist" id="JuliaNDistance">-7</textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
